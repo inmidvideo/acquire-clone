@@ -1,19 +1,18 @@
 function draw() {
 	var board = document.getElementById("board");
-	var tray = document.getElementById("tray");
 
 	var boardContext = board.getContext("2d");
-	var trayContext = tray.getContext("2d");
 
 	var squareSize = 70;
 	
 	boardContext.font = "12pt arial";
 
 	// this draws the board
+	boardContext.strokeRect(5.5,5.5,840,630); 
 	for (iRowCounter = 0; iRowCounter < 9; iRowCounter++) {
 		for (iColCounter = 0; iColCounter < 12; iColCounter++) {
-			var y = (iRowCounter*70);
-			var x = (iColCounter*70);
+			var y = (iRowCounter*70)+5.5;
+			var x = (iColCounter*70)+5.5;
 			
 			//draws the rectangle for each tile
 			boardContext.strokeRect(x,y,70,70);
@@ -30,9 +29,9 @@ function draw() {
 	
 	// this draws the tiles in the tray
 	for (tileCounter = 0; tileCounter < 6; tileCounter++) {
-		var startX = 130 + (90*tileCounter);
-		trayContext.strokeRect(startX,5,70,70);
-		}
+		var startX = 130.5 + (90*tileCounter);
+		boardContext.strokeRect(startX,655.5,70,70);
+		} 
 
 }
 
