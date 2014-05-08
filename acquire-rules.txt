@@ -1,0 +1,55 @@
+How to play Acquire ... high adventure in high finance
+
+The main objective of Acquire is to become the wealthiest player by the end of the game. This is done by forming hotel chains and obtaining free shares of stock, buying the right stock at the right time, merging chains to obtain capital, and adding hotels to the chains in which you have controlling interest to increase their value.
+
+Terms
+Board - playing board.
+Stock Market - tray containing the money, stock certificates, and chain markers.
+Stock Certificate - one block of stock (25 per chain).
+Shareholder - player owning stock.
+Hotel - black playing tile.
+Chain - two or more hotels on adjoining squares (not diagonally).
+Chain Marker - colored tile placed on one of the hotels on the board to designate a chain.
+Open Chain - a chain of ten or less hotels.
+Safe Chain - a chain of 11 or more hotels.
+Merger - two or more chains connected in one play.
+Defunct Chain - an open chain which is taken over by a larger chain as a result of a merger.
+
+Setup
+Place board in center of table and cluster the black hotel tiles, face down, around the board. Each player receives an information card and $6,000 in the following denominations:
+
+4 - $1,000 bills
+3 - $500 bills
+5 - $100 bills
+
+Each player draws one hotel tile. The player with the lowest number plays first. If the same low number is drawn , the letter nearest the beginning of the alphabet starts. (For example, the tile 2B would beat 2E and 3A.) Each player keeps his tile, draws 5 more, and stands them in a row facing him. Play rotates clockwise.
+
+Play
+Objective 1: Forming a chain
+The first player places one of his six tiles in its corresponding square on the board. Each successive player does the same, attempting to place his tile next to the one already played (rank or file, not diagonally), in order to form a hotel _chain._ The player who thus forms a chain chooses its name from among the seven listed on the information card; he places the corresponding chain marker on top of one of the tiles in the chain. As founder's bonus, he receives free one share of stock in that chain. (In addition, he can _buy_ up to three shares of stock.) After each player has completed his transactions, he replaces his played tile with another from the cluster on the table.
+
+_A maximum of seven chains may be on the board at one time._ A tile which would create an eight chain may not be played.
+
+Objective 2: Buying stock
+Any player, right after playing his tile in his turn, can buy shares of stock in any of the chains on the board, up to a _total_ purchase of three shares. Price per share varies with amount of hotels in chain (see information card).
+
+A player who runs out of money cannot buy stock, but he can play a tile. He cannot raise money by selling his stock, except during the disposal period after a merger. _A player who cannot play any of his tiles can buy stock._
+
+Objective 3: Merging chains
+_If a tile is played which merges together two chains, the larger chain takes over the smaller chain._ (If both chains are the same size before the merging tile is played, the player chooses which chain takes over.) The now "defunct" chain's colored marker is removed. The two largest shareholders in the defunct chain's stock receive compensatory bonuses (see information card, Majority Holder's bonus, First and Second). In case of a tie, both bonuses are combined and divided between the tying shareholders; if one player holds all of the chain's stock, he receives both bonuses. If the bonuses do not divide into even $100 amounts, the majority shareholders all receive the next greatest amount.
+
+_At this time,_ all players holding shares in the defunct chain can choose to sell, trade, and/or hold their stock (clockwise, starting with the player who made the merger), as follows:
+
+a) _Sell:_ Price is determined by the number of hotels in the defunct chain before the merger. All transactions are made with the stock market; certificates are returned to the stock market tray.
+b) _Trade:_ Stock can be traded two-for-one-two shares of defunct stock for each available share of the controlling chain's stock.
+c) _Hold:_ Stock in the defunct chain can be held if the player expects to start another chain with that name.
+
+_Trading or selling of stock between players is not permitted._ All transactions are made with the stock market.
+
+After all players have disposed of their defunct stock, the player who made the merger may buy the standard amount of stock.
+
+Objective 4: Enlarging and securing chains
+Worth of stock increases as the size of chain on board increases, so each player should attempt to enlarge the chains in which he has the most interest. A chain is "safe" when it contains 11 or more hotel tiles: it cannot be taken over by another chain. A tile which would join two safe chains cannot be played. A safe chain can take over an "open" chain.
+
+Ending the Game
+The game ends when either all chains on the board are safe or one chain contains 41 or more hotels. The player who causes either to happen finishes his turn, purchasing stock if he so wishes. Majority Holder's Bonuses are dealt out. All players sell their stock to the stock market. (Stock in a chain that is not on the board is worthless.) The player with the most money is the winner.
