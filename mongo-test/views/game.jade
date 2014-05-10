@@ -1,0 +1,13 @@
+doctype html
+html
+	head
+		include head
+		title= "game"
+		script(type='text/javascript').
+			window.onload = function() {
+				var socket = io.connect(document.URL);
+			}
+	body
+	.container
+		h1 game
+		p Game #{game}

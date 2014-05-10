@@ -1,0 +1,35 @@
+doctype html
+html
+	head
+		include head
+		title= "register"
+		link(rel='stylesheet', href='css/login.css')
+		script(type='text/javascript').
+			function validate() {
+				var user = document.register.username;
+				var pass = document.register.password;
+				var pass2 = document.register.password2;
+
+				// check username length
+				if(user.value.length < 3) {
+					alert("username must be longer than three characters");
+					user.focus();
+					return false;
+				}
+				// check that passwords match
+				else if(pass.value != pass2.value) {
+					alert("passwords do not match");
+					pass.focus();
+					return false;
+				}
+
+				return true;
+			}
+	body
+	.container
+		form.form-signin(role='form', name="login", action="/login", method="post", style="max-width: 300px", onSubmit="return validate()")
+			h2 register
+			input.form-control(type='text', name="username", placeholder='Enter Username' required autofocus)
+			input.form-control(type='password', name="password", placeholder='Enter Password' required)
+			input.form-control(type='password', name="password2", placeholder='Repeat Password' required)
+			button.btn.btn-primary.btn-block(type='submit') Submit
