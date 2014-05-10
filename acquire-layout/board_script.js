@@ -1,21 +1,21 @@
+// this creates a global 2D array that stores the board information
+var boardState = new Array(108);
+for (i = 0; i < 108; i++) {
+	boardState[i] = new Array(3);
+	boardState[i][0] = tileNamer(i);	//name of tile
+	boardState[i][1] = tileLocation(i);
+	boardState[i][2] = "Available";  		//tile status
+}
+	
+boardState[28][2] = "Occupied"; //temporary line to demonstrate filled space
+boardState[98][2] = "Occupied"; //temporary line to demonstrate filled space
+boardState[42][2] = "Unavailable"; //temporary line to demonstrate filled space
+
 function draw() {
 
 	var board = document.getElementById("board");
 
 	var boardContext = board.getContext("2d");
-	
-	// this creates a 2D array that stores the board information
-	var boardState = new Array(108);
-	for (i = 0; i < 108; i++) {
-		boardState[i] = new Array(3);
-		boardState[i][0] = tileNamer(i);	//name of tile
-		boardState[i][1] = tileLocation(i);
-		boardState[i][2] = "Available";  		//tile status
-	}
-	
-	boardState[28][2] = "Occupied"; //temporary line to demonstrate filled space
-	boardState[98][2] = "Occupied"; //temporary line to demonstrate filled space
-	boardState[42][2] = "Unavailable"; //temporary line to demonstrate filled space
 	
 	boardContext.font = "12pt arial";
 
