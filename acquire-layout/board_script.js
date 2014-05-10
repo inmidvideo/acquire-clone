@@ -1,32 +1,60 @@
 function draw() {
+
 	var board = document.getElementById("board");
 
 	var boardContext = board.getContext("2d");
-
-	var squareSize = 70;
+	
+	// this creates a 2D array that stores the board information
+	var boardState = new Array(108);
+	for (i = 0; i < 108; i++) {
+		boardState[i] = new Array(3);
+		boardState[i][0] = tileNamer(i);	//name of tile
+		boardState[i][1] = tileLocation(i);
+		boardState[i][2] = "Available";  		//tile status
+	}
+	
+	boardState[28][2] = "Occupied"; //temporary line to demonstrate filled space
+	boardState[98][2] = "Occupied"; //temporary line to demonstrate filled space
+	boardState[42][2] = "Unavailable"; //temporary line to demonstrate filled space
 	
 	boardContext.font = "12pt arial";
 
-	// this draws the board
+	// this draws the board outline
 	boardContext.strokeRect(5.5,5.5,840,630); 
-	for (iRowCounter = 0; iRowCounter < 9; iRowCounter++) {
-		for (iColCounter = 0; iColCounter < 12; iColCounter++) {
-			var y = (iRowCounter*70)+5.5;
-			var x = (iColCounter*70)+5.5;
+	
+	// this draws the squares based on the data stored in the boardState array
+	
+	for (d = 0; d < 108; d++) {
+	
+		if (boardState[d][2] == "Available") {
 			
-			//draws the rectangle for each tile
-			boardContext.strokeRect(x,y,70,70);
-
-			//get text for each tile 
-			var rowText = tileNamer(iRowCounter, iColCounter);
-
-			//print the text in the center of each rectangle
-			var textY = y+40;
-			var textX = x+((70-boardContext.measureText(rowText).width)/2);
+			boardContext.strokeRect(boardState[d][1][0],boardState[d][1][1],70,70);
+		
+			boardContext.fillStyle = "black";
+			var rowText = boardState[d][0];
+			var textY = boardState[d][1][1]+40;
+			var textX = boardState[d][1][0]+((70-boardContext.measureText(rowText).width)/2);
+			boardContext.fillText(rowText, textX, textY);
+			
+		} else {
+		
+			if (boardState[d][2] == "Occupied") {
+				boardContext.fillStyle = "black";
+			}
+			else {
+				boardContext.fillStyle = "gray";
+			}
+			
+			boardContext.fillRect(boardState[d][1][0],boardState[d][1][1],70,70);
+		
+			boardContext.fillStyle = "white";
+			var rowText = boardState[d][0];
+			var textY = boardState[d][1][1]+40;
+			var textX = boardState[d][1][0]+((70-boardContext.measureText(rowText).width)/2);
 			boardContext.fillText(rowText, textX, textY);
 		}
 	}
-	
+
 	// this draws the tiles in the tray
 	for (tileCounter = 0; tileCounter < 6; tileCounter++) {
 		var startX = 130.5 + (90*tileCounter);
@@ -35,33 +63,27 @@ function draw() {
 
 }
 
-function tileNamer(iRow, iCol) { //returns text for each tile based on row/col number
-	iCol++;
-	if (iRow==0) {
-		return iCol + "-" + "A";
-	}
-	else if (iRow==1) {
-		return iCol + "-" + "B";
-	}
-	else if (iRow==2) {
-		return iCol + "-" + "C";
-	}
-	else if (iRow==3) {
-		return iCol + "-" + "D";
-	}
-	else if (iRow==4) {
-		return iCol + "-" + "E";
-	}
-	else if (iRow==5) {
-		return iCol + "-" + "F";
-	}
-	else if (iRow==6) {
-		return iCol + "-" + "G";
-	}
-	else if (iRow==7) {
-		return iCol + "-" + "H";
-	}
-	else if (iRow==8) {
-		return iCol + "-" + "I";
-	}
+function tileNamer(tileNum) { //returns name of each tile based on position
+
+	var rowNum = Math.floor(tileNum/12);
+	var colNum = (tileNum % 12)+1;
+	var rowString = String.fromCharCode(rowNum + 65);
+	
+	return colNum + "-" + rowString;
+}
+
+function tileLocation(tileNum) { //returns array with x and y location
+	
+	var rowNum = Math.floor((tileNum)/12);
+	var colNum = tileNum % 12;
+	
+	var xLocation = (colNum*70) + 5.5;
+	var yLocation = (rowNum*70) + 5.5;
+
+	var position = new Array();
+	position[0] = xLocation;
+	position[1] = yLocation;
+	
+	return position;
+
 }
