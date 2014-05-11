@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var ObjectId = mongoose.Schema.Types.ObjectId;
+var Player = require('./player');
 
 /*-----------------------------------------------------------------------------
   tile schema
@@ -27,7 +28,7 @@ var Game = new mongoose.Schema({
 	gameState: Number,
 	createDate: { type: Date, default: Date.now },
 	privateGame: Boolean,
-	players: Array,
+	players: [Player],
 	stock: [Stock],
 	tiles: [Tile],
 	}, {collection: 'games'});

@@ -10,6 +10,7 @@ var GameType = new mongoose.Schema({
 	startMoney: Number,
 	boardRows: Number,
 	boardCols: Number,
+	numStock: Number,
 	chains: Array,
 	}, {collection: 'game-types'});
 

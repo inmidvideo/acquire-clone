@@ -37,6 +37,7 @@ mongoose.connect('mongodb://localhost:27017/acquire-clone');
 var GameType = require('./models/game-type');
 var Game = require('./models/game').Game;
 var Tile = require('./models/game').Tile;
+var Stock = require('./models/game').Stock;
 var User = require('./models/user');
 var Player = require('./models/player');
 
@@ -83,13 +84,13 @@ app.get('/logout', function(req, res) {
 // new game
 app.get('/newGame', function(req, res) {
 	// get default game type
-	GameType.findOne({ name: /^Default/ }, function (err, type) {
+	GameType.findOne({ name: /^Default/ }, function (err, gameType) {
   		if (err) return console.error(err);
   		//console.log(req);
   		
   		// create tiles
   		newTiles = []
-  		for(var i = 0; i < type.boardRows*type.boardCols; i++) {
+  		for(var i = 0; i < gameType.boardRows*gameType.boardCols; i++) {
   			var tile = new Tile({
   				state: 0,
   				chainId: null,
@@ -97,25 +98,45 @@ app.get('/newGame', function(req, res) {
   			});
   			newTiles.push(tile);
   		}
+
+  		// create stock
+  		newStock = []
+  		for(var i = 0; i < gameType.chains.length; i++) {
+  			for(var j = 0; j < gameType.numStock; j++) {
+	  			var stock = new Stock({
+	  				chainId: gameType.chains[i],
+	  				playerId: null
+	  			});
+	  			newStock.push(stock);
+	  		}
+  		}
 	
 		// create new game
 		var newGame = new Game({
-			gameType : type.id,
+			gameType : gameType.id,
 			gameState : 0,
 			createDate: new Date,
 			privateGame : false,
 			players : [],
-			tiles : newTiles
+			tiles : newTiles,
+			stock: newStock
 		});
 		newGame.save(function(err, newGame) {
 			if(err) throw err;
 
+			console.log(req.user.id);
 			// create new player
 			var newPlayer = new Player({
   				gameId : newGame.id,
-  				playerId : req.user.id,
-  				money : type.startMoney
-  			})
+  				userId : req.user.id,
+  				money : gameType.startMoney
+  			});
+  			newPlayer.save(function(err, newPlayer) {
+  				if(err) throw err;
+
+  				// add player to game
+
+  			});
 
 			res.redirect('/game/' + newGame.id);
 
