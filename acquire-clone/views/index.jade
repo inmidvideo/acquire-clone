@@ -1,0 +1,31 @@
+doctype html
+html
+	head
+		include head
+		title= "inmidacquire"
+		link(rel='stylesheet', href='css/navbar.css')
+		script(type='text/javascript').
+			window.onload = function() {
+				var content = document.getElementById("content");
+				var lobby = io.connect(document.URL + 'lobby');
+				var games = [];
+				content.innerHTML = '';
+
+				// get message
+				lobby.on('newGame', function (data) {
+					//console.log(data);
+					if(data.game) games.push(data.game);
+
+					var contentHtml = ''; 	
+					for(var i=0; i < games.length; i++) {
+						contentHtml += '<a href=/game/' + games[i] + '>' + games[i] + '<\a><br />';
+					}
+
+					content.innerHTML = contentHtml;
+				})
+			}
+
+	body
+		div.container
+			include navbar
+
