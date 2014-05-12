@@ -46,12 +46,12 @@ var Player = require('./models/player');
 -----------------------------------------------------------------------------*/
 // index
 app.get('/', function (req, res) {
-	res.render('index', { user : req.user });
+	res.render('index', { user: req.user });
 });
 
 // login get
 app.get('/login', function(req, res) {
-	res.render('login', { user : req.user });
+	res.render('login', {});
 });
 
 // login post
@@ -61,7 +61,7 @@ app.post('/login', passport.authenticate('local'), function(req, res) {
 
 // register get
 app.get('/register', function(req, res) {
-	res.render('register', { });
+	res.render('register', {});
 });
 
 // register post
@@ -88,7 +88,7 @@ app.get('/newGame', function(req, res) {
   		if (err) return console.error(err);
   		//console.log(req);
   		
-  		// create tiles
+  		// generate tiles
   		newTiles = []
   		for(var i = 0; i < gameType.boardRows*gameType.boardCols; i++) {
   			var tile = new Tile({
@@ -99,7 +99,7 @@ app.get('/newGame', function(req, res) {
   			newTiles.push(tile);
   		}
 
-  		// create stock
+  		// generate stock
   		newStock = []
   		for(var i = 0; i < gameType.chains.length; i++) {
   			for(var j = 0; j < gameType.numStock; j++) {
@@ -134,8 +134,7 @@ app.get('/newGame', function(req, res) {
   			newPlayer.save(function(err, newPlayer) {
   				if(err) throw err;
 
-  				// add player to game
-
+  				// add player to game?
   			});
 
 			res.redirect('/game/' + newGame.id);
@@ -153,7 +152,13 @@ app.get('/game', function(req, res) {
 
 // game with id
 app.get('/game/:id', function(req, res) {
-	res.render('game', { user : req.user, game : req.params.id });
+	// if user is logged in, go to game
+	if(req.user) {
+		res.render('game', { user : req.user, gameId : req.params.id });
+	}
+	else {
+		res.redirect('/login');
+	}
 });
 
 /*-----------------------------------------------------------------------------
@@ -178,7 +183,10 @@ var lobby = io.of('/lobby').on('connection', function(socket) {
 
 // game connection
 var game = io.of('/game').on('connection', function(socket) {
-	
+	console.log("game connection");
+
+	socket.on('subscribe', function(data) {
+		socket.join(data.room); 
+		console.log("room " + data.room + " joined");
+	});
 })
-
-

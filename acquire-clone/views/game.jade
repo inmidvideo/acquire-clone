@@ -10,18 +10,24 @@ html
 			var boardCols = 12;
 			var boardRatio = 11.0/8.0;
 			var numTiles = boardRows*boardCols;
+			var trayRows = 1;
 			var trayCols = 6;
 
 			window.onload = function() {
-				var socket = io.connect(document.URL);
+				var socket = io.connect(document.location.hostname + ":" + document.location.port + "/game");
+				var user = !{JSON.stringify(user)};
+				var gameId = !{JSON.stringify(gameId)};
+
+				// subscribe to room
+				socket.emit('subscribe', {room: gameId});
 
 				// draw and tray
 				draw();
 			}
 
-			function onResize() {
+			$(window).resize(function() {
 				draw();
-			}
+			})
 
 			function draw() {
 				var board = document.getElementById("board");
@@ -31,13 +37,14 @@ html
 				board.width  = board.offsetWidth;
 				board.height = board.offsetWidth/boardRatio;
 
-				// this draws the board outline
-				boardContext.strokeRect(0, 0, board.width, board.height); 
+				//- // this draws the board outline
+				//- boardContext.strokeRect(0, 0, board.width, board.height); 
 
 				// get tile width and height
 				var tileWidth = board.width/boardCols;
 				var tileHeight = board.height/boardRows;
-				// iterate through rows and cols
+
+				// iterate through tiles
 				for(var i = 0; i < numTiles; i++) {
 					// get row and column
 					row = Math.floor(i/12);
@@ -47,10 +54,27 @@ html
 					tileX = col*tileWidth;
 					tileY = row*tileHeight;
 					tileText = tileName(i);
+					//tileText = '';
 
 					// draw tile
 					drawTile(boardContext, tileX, tileY, tileWidth, tileHeight, tileText);
 				}
+
+				// draw column lines
+				for(var col = 0; col <= boardCols; col++) {
+					boardContext.moveTo(col*tileWidth, 0);
+					boardContext.lineTo(col*tileWidth, board.height);
+
+				}
+
+				// draw row lines
+				for(var row = 0; row <= boardRows; row++) {
+					boardContext.moveTo(0, row*tileHeight);
+					boardContext.lineTo(board.width, row*tileHeight);
+				}
+
+				boardContext.strokeStyle = "606060";
+				boardContext.stroke();
 
 				// draw tray
 				drawTray(tileWidth, tileHeight);
@@ -64,47 +88,65 @@ html
 				return colNum + "-" + rowString;
 			}
 
-			function drawTray(tileWidth, tileHeight) {
+			function drawTray(width, height) {
 				var tray = document.getElementById("tray");
 				var trayContext = tray.getContext("2d");
+				var tileRatio = width/height;
 
-				tray.style.width = tileWidth*trayCols;
-				tray.style.height = tileHeight;
+				// fit board to container
 				tray.width  = tray.offsetWidth;
-				tray.height = tray.offsetHeight;
+				tileWidth = tray.offsetWidth/trayCols;
+				tray.height = tileWidth/tileRatio;
+				tileHeight = tray.height;
 
 				for(var col = 0; col < trayCols; col++) {
 					tileX = col*tileWidth;
 					tileText="0-Z";
 					drawTile(trayContext, tileX, 0, tileWidth, tileHeight, tileText);
 				}
+
+				// draw column lines
+				for(var col = 0; col <= trayCols; col++) {
+					trayContext.moveTo(col*tileWidth, 0);
+					trayContext.lineTo(col*tileWidth, board.height);
+
+				}
+
+				// draw row lines
+				for(var row = 0; row <= trayRows; row++) {
+					trayContext.moveTo(0, row*tileHeight);
+					trayContext.lineTo(board.width, row*tileHeight);
+				}
+
+				trayContext.strokeStyle = "606060";
+				trayContext.stroke();
 			}
 
 			function drawTile(ctx, x, y, width, height, text) {
 				// begin path
 				ctx.beginPath();
 
-				// draw tile border
-				ctx.rect(x, y, width, height);
-
 				// fill tile
 				ctx.fillStyle = "white";
 				ctx.fill()
 
 				// draw text
-				ctx.fillStyle = "black";
-				ctx.font = "8pt arial";		// choose text size based on canvas size?
+				ctx.fillStyle = "A0A0A0";
+				var fontHeight = Math.floor(width/3.0) 
+				ctx.font = fontHeight + "px arial";	// choose text size based tile width
 				var textX = x + (width  - ctx.measureText(text).width)/2.0;
-				var textY = y + height/2.0;
+				var textY = y + (height + 0.75*fontHeight)/2.0;
 				ctx.fillText(text, textX, textY);
-
-				// stroke tile
-				ctx.stroke();
 			}
-	body(onresize="onResize()")
+	body
 	div.container
 		include navbar
-		div.board-container(style="width: 100%")
-			canvas(id="board", style="width: 100%")
-		div.tray-container
-			canvas(id="tray")
+		div.row(style="width: 100%")
+			div.col-xs-8.col-md-8
+				div.board-container
+					canvas(id="board", style="width: 100%")
+			div.col-xs-4.col-md-4
+				div.tray-container
+					canvas(id="tray", style="width: 100")
+
+

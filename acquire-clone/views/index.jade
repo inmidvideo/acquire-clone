@@ -7,7 +7,7 @@ html
 		script(type='text/javascript').
 			window.onload = function() {
 				var content = document.getElementById("content");
-				var lobby = io.connect(document.URL + 'lobby');
+				var lobby = io.connect(document.location.hostname + ":" + document.location.port + "/lobby");
 				var games = [];
 				content.innerHTML = '';
 
